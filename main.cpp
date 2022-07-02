@@ -3,6 +3,26 @@
 #include <vector>
 using std::cout;
 using std::cin;
+#include <ostream>
+
+
+std::ostream& operator<<(std::ostream& os, const IntArray& a)
+{
+    os << "[";
+    for (int i=0; i < a.Size(); i++)
+    {
+        if (i != a.Size() - 1)
+        {
+            os << a[i] << ", ";
+        }
+        else
+        {
+            os << a[i];
+        }
+    } 
+    os << "]";
+    return os;
+}
 
 int main()
 {
@@ -15,18 +35,11 @@ int main()
             a[i] = (i + 1)* 10;
         }
 
-        cout << "Array elements: ";
-        for (int i = 0; i < a.Size(); i++)
-        {
-            cout << a[i] << ' ';
-        }
-        cout << '\n';
+        cout << "Array elements: " << a << std::endl;
 
-        cout << "Array size is: " << a.Size() << "\n";
-        cout << "Please enter an array index: ";
-        int index{};
-        cin >> index;
-        cout << "The element at index " << index << " is " << a[index] << '\n';
+        IntArray b = a;
+
+        cout << "Array b: " << b << std::endl;
     }
     catch(const IndexOutOfBoundsException& e)
     {
@@ -35,3 +48,4 @@ int main()
 
     return 0;
 }
+

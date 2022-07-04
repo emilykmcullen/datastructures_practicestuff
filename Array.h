@@ -1,6 +1,7 @@
 #pragma once
 #include <utility>
 #include <ostream>
+#include <iostream>
 
 class IndexOutOfBoundsException{};
 
@@ -31,9 +32,10 @@ class Array
 
         explicit Array(int size)
         {
+             std::cout << "DEFAULT CONSTRUCTOR CALLED" << std::endl;
             if (size != 0)
             {
-                m_ptr = new T[size]{};
+                m_ptr = new T[size]{}; //All values will be init to 0 instead of garbage values using the brace initialization
                 m_size = size;
             }
         }
@@ -52,6 +54,7 @@ class Array
         */
         Array(const Array& source)
         {
+             std::cout << "COPY CONSTRUCTOR CALLED" << std::endl;
             if (!source.IsEmpty())
             {
                 m_ptr = new int[source.Size()]{};
@@ -88,6 +91,8 @@ class Array
        //
         Array(Array&& source)
         {
+
+            std::cout << "MOVE CONSTRUCTOR CALLED" << std::endl;
             //Transfer ownership (steal data from source)
             m_ptr = source.m_ptr;
             m_size = source.m_size;
@@ -123,6 +128,59 @@ class Array
         }
 
         int Size() const { return m_size; }
+
+        /** LINEAR SEARCH */
+        int Search(const T& element)
+        {
+            int count = 1;
+            for (int i = 0; i < m_size; i++)
+            {
+                
+                if (m_ptr[i] == element)
+                {
+                    std::cout << "Linear search took " << count << " steps" << std::endl;
+
+                    return i;
+                }
+                count++;
+                
+            }
+            return -1;
+        }
+
+        /** BINARY SEARCH - ARRAY MUST BE SORTED FIRST, TODO: implement sort*/
+        int BinarySearch(const T& element)
+        {
+            int left = 0;
+            int right = m_size - 1;
+
+            int count = 1;
+
+            while (left <= right)
+            {
+                int middle = (left + right) /2;
+
+                if (m_ptr[middle] == element)
+                {
+                    std::cout << "Binary search took " << count << " steps" << std::endl;
+                    return middle;
+                }
+                else if (m_ptr[middle] < element)
+                {
+                    //Search in the right half
+                    left = middle + 1;
+                }
+                else if (m_ptr[middle] > element)
+                {
+                    //Search in the left half
+                    right = middle - 1;
+                }
+                count++;
+            }
+
+            //If left becomes more than right, element not found
+            return -1;
+        }
 
 };
 

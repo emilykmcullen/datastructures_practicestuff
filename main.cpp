@@ -1,5 +1,4 @@
 #include "Array.h"
-#include <iostream>
 #include <vector>
 using std::cout;
 using std::cin;
@@ -21,11 +20,18 @@ int main()
         Array<int> b = a;
 
         cout << "Array b: " << b << std::endl;
+
+        int index = a.Search(100);
+        int index2 = a.BinarySearch(100);
+        cout << "Element found at index " << index << std::endl;
+        cout << "Element found at index " << index2 << std::endl;
     }
     catch(const IndexOutOfBoundsException& e)
     {
         cout << "\n ERROR: Invalid array index!\n";
     }
+
+
 
     return 0;
 }

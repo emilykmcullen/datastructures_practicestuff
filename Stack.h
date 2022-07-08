@@ -2,6 +2,9 @@
 #include <ostream>
 #include "Array.h"
 
+class StackOverflowException{};
+class StackUnderflowException{};
+
 template <typename T>
 class Stack {
 friend std::ostream& operator<<(std::ostream& os, const Stack<T>& stack)
@@ -12,7 +15,7 @@ friend std::ostream& operator<<(std::ostream& os, const Stack<T>& stack)
         return os; 
     }
 
-    os << "Stack: \n"
+    os << "Stack: \n";
     for (int i = stack.m_top; i >= 0; i--)
     {
         os << "    " << stack.m_array[i] << "\n";
@@ -34,6 +37,10 @@ friend std::ostream& operator<<(std::ostream& os, const Stack<T>& stack)
 
         void Push(const T& element)
         {
+            if (Size() >= MaxSize())
+            {
+                throw StackOverflowException{};
+            }
             //Push element on top of the stack
             m_top++;
             m_array[m_top] = element;
@@ -41,6 +48,10 @@ friend std::ostream& operator<<(std::ostream& os, const Stack<T>& stack)
 
         T Pop()
         {
+            if (Size() <= 0)
+            {
+                throw StackUnderflowException{};
+            }
             T topElement = m_array[m_top];
             m_top--;
             return topElement;

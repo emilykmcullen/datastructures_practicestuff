@@ -50,19 +50,23 @@ int main()
     // {
     //     cout << "\n ERROR: Invalid array index!\n";
     // }
+    {
+        LinkedList<int> ll{};
 
-    LinkedList<int> ll{};
-
-    ll.Add(1);
-    ll.Add(8);
-    ll.Add(16);
-    ll.Add(3);
-    ll.Print();
-    // cout << ll.Search(3);
-    // cout << ll.Search(17) << std::endl;
-    ll.Reverse();
-    std::cout << ll.m_head->m_data << std::endl;
-    ll.Print();
+        ll.Add(1);
+        ll.Add(8);
+        ll.Add(16);
+        ll.Add(3);
+        ll.Print();
+        // cout << ll.Search(3);
+        // cout << ll.Search(17) << std::endl;
+        //ll.Reverse();
+        //std::cout << ll.m_head->m_data << std::endl;
+        //ll.Print();
+        ll.DeleteNodes();
+        ll.Print();
+    }
+    
 
 
 

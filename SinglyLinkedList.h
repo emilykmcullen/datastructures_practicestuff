@@ -6,6 +6,11 @@ class LinkedList
 {
     public:
 
+    ~LinkedList()
+    {
+        DeleteNodes();
+    }
+
     struct Node
     {
         //Needs to contain data and pointer to next
@@ -13,6 +18,7 @@ class LinkedList
         Node* m_next{nullptr};
 
         Node() = default;
+
         
         //Constructor with data and node to point to
         Node(T data, Node* next)
@@ -20,6 +26,8 @@ class LinkedList
             m_data = data;
             m_next = next;
         }
+
+
 
         
     };
@@ -48,13 +56,22 @@ class LinkedList
 
     void Print()
     {
-        Node* currentNode = m_head;
-        while (currentNode != nullptr)
+        if (!m_head)
         {
-            std::cout << "Data at node is: " << currentNode->m_data << std::endl;
-            currentNode = currentNode->m_next;
-            
+            std::cout << "Empty linked list" << std::endl;
         }
+        else
+        {
+            Node* currentNode = m_head;
+            while (currentNode != nullptr)
+            {
+                std::cout << "Data at node is: " << currentNode->m_data << std::endl;
+                currentNode = currentNode->m_next;
+                
+            }
+        }
+        
+        
     }
 
     template<typename T2>
@@ -120,6 +137,17 @@ class LinkedList
                 temp2 = temp3;
 
             }
+        }
+    }
+
+    void DeleteNodes()
+    {
+        while (m_head)
+        {
+            Node* newHead = m_head->m_next;
+            delete m_head;
+            m_head = newHead;
+
         }
     }
 
